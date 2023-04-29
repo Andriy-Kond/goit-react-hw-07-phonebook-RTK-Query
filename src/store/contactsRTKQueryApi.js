@@ -35,7 +35,7 @@ export const contactsRTKQuery = createApi({
     addContact: builder.mutation({
       query: newContact => {
         console.log('builder.mutation -> newContact:', newContact);
-        return { url: 'contacts', method: 'POST', newContact };
+        return { url: 'contacts', method: 'POST', body: newContact };
       },
       invalidatesTags: [{ type: 'contactsSubscribe', id: 'LIST' }],
     }),
