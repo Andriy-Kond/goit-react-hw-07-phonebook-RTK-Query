@@ -1,15 +1,8 @@
 import PropTypes from 'prop-types';
 import css from './Contacts.module.css';
 
-// ^ Рефакторінг у Redux
-// import { useDispatch } from 'react-redux';
-// import { deleteContact } from 'services/fetch';
-
 // ^ Рефакторінг у RTK Query
-import {
-  useDeleteContactMutation,
-  // useGetContactsQuery,
-} from 'store/contactsRTKQueryApi';
+import { useDeleteContactMutation } from 'store/contactsRTKQueryApi';
 
 export function MarkupContacts({ name, number, id }) {
   // * При використанні RTK Query:
@@ -21,9 +14,7 @@ export function MarkupContacts({ name, number, id }) {
   // & Хуки Mutation повертають масив
   const [deleteContact, delInfo] = useDeleteContactMutation();
   // console.log('MarkupContacts >> delInfo:', delInfo);
-  // delInfo - це такий об'єкт
-
-  // const dispatch = useDispatch();
+  // delInfo - це об'єкт
 
   const handleDeleteContact = async () => {
     const del = await deleteContact(id);

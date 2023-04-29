@@ -1,7 +1,6 @@
 // ^ Без використання localStorage:
 import { configureStore } from '@reduxjs/toolkit';
 import sliceFilterReducer from './sliceFilter';
-// import sliceAsyncThunkReducer from './sliceAsyncThunk';
 import { contactsRTKQuery } from './contactsRTKQueryApi';
 
 // ~ Для RTKQuery в Store передаємо ще один middleware, а редюсер передаємо трохи по-іншому
@@ -10,7 +9,6 @@ export default configureStore({
   reducer: {
     // Задаємо будь-яке ім'я, бо був export default:
     storeFilter: sliceFilterReducer,
-    // storeAsyncThunk: sliceAsyncThunkReducer,
 
     // Додавання редюсера через RTK Query трохи по-іншому:
     [contactsRTKQuery.reducerPath]: contactsRTKQuery.reducer,

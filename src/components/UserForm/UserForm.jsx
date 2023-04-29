@@ -1,14 +1,6 @@
 import css from './UserForm.module.css';
 import { useState } from 'react';
 
-// ^ Рефакторінг у Redux
-// Для звертання до стору Redux - useSelector, для запуску необхідної дії (необхідного редюсера) - useDispatch
-// import { useDispatch, useSelector } from 'react-redux';
-// import { addInStateContact } from '../../store/SlicePhoneBook';
-// import { nanoid } from '@reduxjs/toolkit';
-// import { selectContacts } from 'store/selectors';
-// import { addContact } from 'services/fetch';
-
 // ^ Рефакторінг у RTK Query
 import {
   useAddContactMutation,
@@ -25,10 +17,6 @@ export const UserForm = () => {
   // console.log('UserForm >> data:', data);
   const { data: contacts } = useGetContactsQuery();
   const [addContact] = useAddContactMutation();
-
-  // dispatch - це як тригер, що відбулась подія. Але нам треба вказати яка саме
-  // const dispatch = useDispatch();
-  // const contacts = useSelector(selectContacts);
 
   // Записую дані полів інпут у відповідні стейти
   const getInput = ({ target: { name, value } }) => {

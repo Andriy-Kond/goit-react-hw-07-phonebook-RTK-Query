@@ -2,13 +2,8 @@ import { UserForm } from './UserForm/UserForm';
 import { Contacts } from './Contacts/Contacts';
 import { Filter } from './Filter/Filter';
 import css from './App.module.css';
-// import { useSelector } from 'react-redux';
-// import { selectError, selectIsLoading } from 'store/selectors';
 import { PreLoader } from './Preloader/PreLoader';
 
-// import { fetchContactWithoutCreateAsyncThunk } from 'services/fetch';
-
-// ^ Рефакторінг у Redux
 // ^ Рефакторінг у RTK Query
 import { useGetContactsQuery } from 'store/contactsRTKQueryApi';
 
@@ -17,10 +12,6 @@ export const App = () => {
   // const data = useGetContactsQuery();
   // console.log('UserForm >> data:', data);
   const { isLoading, isError: error } = useGetContactsQuery();
-
-  // Частини стану:
-  // const isLoading = useSelector(selectIsLoading);
-  // const error = useSelector(selectError);
 
   // Повертаю розмітку:
   return (
