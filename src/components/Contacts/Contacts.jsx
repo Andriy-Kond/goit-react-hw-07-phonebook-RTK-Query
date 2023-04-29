@@ -1,22 +1,28 @@
 import css from './Contacts.module.css';
 
 // ^ Рефакторінг у Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { MarkupContacts } from './MarkupContacts';
-import { selectContacts, selectFilter } from 'store/selectors';
-import { useEffect } from 'react';
-import { fetchContacts } from 'services/fetch';
+import { selectFilter } from 'store/selectors';
+
+// ^ Рефакторінг у RTK Query
+import { useGetContactsQuery } from 'store/contactsRTKQueryApi';
 
 export const Contacts = () => {
-  const dispatch = useDispatch();
+  // * При використанні RTK Query:
+  // const data = useGetContactsQuery();
+  // console.log('UserForm >> data:', data);
+  const { data: contacts } = useGetContactsQuery();
+
+  // const dispatch = useDispatch();
   // Виклик "операції":
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
   // Забираю лист контактів зі store Redux:
   // useSelector приймає функцію, яка приймає увесь store з Redux
-  const contacts = useSelector(selectContacts);
+  // const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
 
   // Фільтрація контактів:
@@ -28,7 +34,7 @@ export const Contacts = () => {
 
   // Рендер відфільтрованих контактів:
   return (
-    filteredContacts.length > 0 && (
+    filteredContacts?.length > 0 && (
       <ul className={css.list}>
         {filteredContacts.map(({ name, phone: number, id }) => {
           return (

@@ -3,20 +3,32 @@ import { useState } from 'react';
 
 // ^ Рефакторінг у Redux
 // Для звертання до стору Redux - useSelector, для запуску необхідної дії (необхідного редюсера) - useDispatch
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 // import { addInStateContact } from '../../store/SlicePhoneBook';
 // import { nanoid } from '@reduxjs/toolkit';
-import { selectContacts } from 'store/selectors';
-import { addContact } from 'services/fetch';
+// import { selectContacts } from 'store/selectors';
+// import { addContact } from 'services/fetch';
+
+// ^ Рефакторінг у RTK Query
+import {
+  useAddContactMutation,
+  useGetContactsQuery,
+} from 'store/contactsRTKQueryApi';
 
 export const UserForm = () => {
-  // dispatch - це як тригер, що відбулась подія. Але нам треба вказати яка саме
-  const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
-
   // Локальні стейти немає сенсу переносити у глобальний Redux:
   const [userName, setUserName] = useState('');
   const [userNumber, setUserNumber] = useState('');
+
+  // * При використанні RTK Query:
+  // const data = useGetContactsQuery();
+  // console.log('UserForm >> data:', data);
+  const { data: contacts } = useGetContactsQuery();
+  const [addContact] = useAddContactMutation();
+
+  // dispatch - це як тригер, що відбулась подія. Але нам треба вказати яка саме
+  // const dispatch = useDispatch();
+  // const contacts = useSelector(selectContacts);
 
   // Записую дані полів інпут у відповідні стейти
   const getInput = ({ target: { name, value } }) => {
@@ -28,7 +40,7 @@ export const UserForm = () => {
   };
 
   // Спроба записати новий контакт
-  const setContact = e => {
+  const setNewContact = async e => {
     e.preventDefault();
 
     // Перевірка чи є вже такий контакт:
@@ -39,9 +51,11 @@ export const UserForm = () => {
       alert(`${userName} is already in contacts`);
     } else {
       // спроба створити об'єкт:
-      const isCreated = dispatch(
-        addContact({ name: userName, phone: userNumber })
-      );
+      const isCreated = await addContact({
+        name: userName,
+        phone: userNumber,
+      });
+      console.log('setContact >> isCreated.data:', isCreated.data);
 
       // Якщо новий об'єкт створений успішно, то обнуляємо поля інпутів у формі
       if (isCreated) {
@@ -53,7 +67,7 @@ export const UserForm = () => {
 
   // Повертаю розмітку:
   return (
-    <form className={css.addUserForm} onSubmit={setContact}>
+    <form className={css.addUserForm} onSubmit={setNewContact}>
       <div className={css.userFormWrapper}>
         <div className={css.inputWrapper}>
           <label className={css.formLabel} htmlFor="UserId">

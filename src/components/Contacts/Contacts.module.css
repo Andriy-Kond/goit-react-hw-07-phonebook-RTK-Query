@@ -1,7 +1,7 @@
 .list {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 500px;
   border: 2px solid black;
   border-radius: 5px;
   padding: 8px;
@@ -20,6 +20,7 @@
   border-radius: 3px;
   padding: 5px;
   cursor: pointer;
+  min-width: 100px;
 }
 
 .deleteBtn:hover {
