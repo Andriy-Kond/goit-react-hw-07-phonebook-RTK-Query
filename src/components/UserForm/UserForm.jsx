@@ -43,7 +43,7 @@ export const UserForm = () => {
         name: userName,
         phone: userNumber,
       });
-      console.log('setContact >> isCreated.data:', isCreated.data);
+      // console.log('setContact >> isCreated.data:', isCreated.data);
 
       // Якщо новий об'єкт створений успішно, то обнуляємо поля інпутів у формі
       if (isCreated) {

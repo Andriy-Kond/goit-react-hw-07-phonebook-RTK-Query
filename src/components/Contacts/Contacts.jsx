@@ -14,7 +14,6 @@ export const Contacts = () => {
   // console.log('UserForm >> data:', data);
   const { data: contacts } = useGetContactsQuery();
 
-  // Забираю лист контактів зі store Redux:
   // useSelector приймає функцію, яка приймає увесь store з Redux
   const filter = useSelector(selectFilter);
 
